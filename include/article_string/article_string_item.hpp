@@ -9,8 +9,8 @@ class ArticleStringItem {
 
     void dump() const { std::cout << invoiceId << "," << contractId << "," << itemName << "," << charge << std::endl; }
 
-	void save() const {}
-	
+    void save() const {}
+
    private:
     const std::string invoiceId;
     const std::string contractId;

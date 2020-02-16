@@ -23,7 +23,7 @@ class ArticleStringFactory {
     }
 
     static std::vector<ArticleStringItem> make(std::map<std::string, BillDocument *> &bd) {
-		// for each sum-sheet document
+        // for each sum-sheet document
         const XMLDocumentSummary *summary = dynamic_cast<XMLDocumentSummary *>(bd["Document.Summary"]);
         std::vector<ArticleStringItem> asis;
         BillDocumentVisitor visitor(summary->getId(), asis);
