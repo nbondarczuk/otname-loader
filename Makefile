@@ -1,6 +1,5 @@
 CC = g++
-#OPTIONS = -g -D__USE_TRACE__
-OPTIONS = -O2 -fpermissive 
+OPTIONS = -g -fpermissive -D__USE_TRACE__
 TARGET = ash
 INCLUDE = -I./include/rapidxml \
 	-I./include \
