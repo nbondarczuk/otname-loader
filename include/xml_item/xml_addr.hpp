@@ -29,6 +29,8 @@ class XMLAddr : public XMLItem {
         load_attributes();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Name;
     const char *City;
     const char *Zip;
@@ -39,9 +41,6 @@ class XMLAddr : public XMLItem {
     const char *Line4;
     const char *Line5;
     const char *Line6;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

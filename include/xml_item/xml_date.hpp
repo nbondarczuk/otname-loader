@@ -29,14 +29,13 @@ class XMLDate : public XMLItem {
         load_attributes();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Type;
     const char *Date;
     const char *HH;
     const char *MM;
     const char *SS;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

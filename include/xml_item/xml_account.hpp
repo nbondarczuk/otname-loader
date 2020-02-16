@@ -29,12 +29,11 @@ class XMLAccount : public XMLItem {
         load_attributes();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Num;
     const char *HolderName1;
     const char *HolderName2;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

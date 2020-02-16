@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "article_string_item.hpp"
+#include "bill_document_visitor.hpp"
 #include "rapidxml.hpp"
 #include "strutl.hpp"
 #include "xml_agg_set.hpp"
@@ -43,24 +43,19 @@ class XMLSumItem : public XMLItem {
         load_charges();
     }
 
-    void collect(std::vector<ArticleStringItem> &asis, const char *documentId, const char *contractId) const {
-        const char *charge = "Empty";
-        for (auto it = Charges.begin(); it != Charges.end(); ++it) {
-            charge = (*it)->Amount;
-            break;
-        }
-        ArticleStringItem current(documentId, contractId, ArticleString, charge);
-        asis.push_back(current);
+    void accept(const BillDocumentVisitor *v) const {
+        auto it = Charges.begin();
+        const char *charge = (*it)->getAmount();
+        v->visit(this, ArticleString, charge);
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *PT;
     const char *ArticleString;
     XMLAggSet *AggSet;
     std::set<XMLSrvStatus *> SrvStatuses;
     std::set<XMLCharge *> Charges;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

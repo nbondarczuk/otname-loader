@@ -38,6 +38,8 @@ class XMLBillAcc : public XMLItem {
         load_fi_cont();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Desc;
     const char *PayMeth;
     const char *BillMedium;
@@ -46,9 +48,6 @@ class XMLBillAcc : public XMLItem {
     XMLCustomer *Customer;
     XMLAddr *Addr;
     XMLFiCont *FiCont;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

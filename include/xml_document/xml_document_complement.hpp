@@ -17,24 +17,24 @@ class XMLDocumentComplement : public XMLDocument {
 
     ~XMLDocumentComplement() {}
 
-    virtual std::string id() const { return "Document.Complement"; }
+    std::string id() const { return "Document.Complement"; }
 
-    virtual XMLDocumentComplement *clone() const {
+    XMLDocumentComplement *clone() const {
         XMLDocumentComplement *p = new XMLDocumentComplement(*this);
         return p;
     }
 
-    virtual void reload(const rapidxml::xml_node<> *node = 0) {
+    void reload(const rapidxml::xml_node<> *node = 0) {
         const rapidxml::xml_node<> *document_root = get_document_root();
         root = document_root->first_node("Complement");
         load();
     }
 
-    virtual void load() {
+    void load() {
         // assert(root);
     }
 
-    virtual void dump() const {
+    void dump() const {
         // assert(root);
     }
 

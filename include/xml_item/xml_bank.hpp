@@ -29,12 +29,11 @@ class XMLBank : public XMLItem {
         load_attributes();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Code;
     const char *Name;
     const char *Branch;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

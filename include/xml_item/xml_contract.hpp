@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "article_string_item.hpp"
+#include "bill_document_visitor.hpp"
 #include "rapidxml.hpp"
 #include "strutl.hpp"
 #include "xml_charge.hpp"
@@ -38,12 +38,15 @@ class XMLContract : public XMLItem {
         load_per_ct_infos();
     }
 
-    void collect(std::vector<ArticleStringItem> &asis, const char *documentId) const {
+    void accept(const BillDocumentVisitor *v) const {
+        v->visit(this, Id);
         for (auto it = PerCTInfos.begin(); it != PerCTInfos.end(); ++it) {
-            (*it)->collect(asis, documentId, Id);
+            (*it)->accept(v);
         }
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Id;
     const char *MRKT;
     const char *SM;
@@ -51,9 +54,6 @@ class XMLContract : public XMLItem {
     XMLDn *Dn;
     std::set<XMLCharge *> Charges;
     std::set<XMLPerCTInfo *> PerCTInfos;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

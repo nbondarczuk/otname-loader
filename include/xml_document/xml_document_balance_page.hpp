@@ -44,11 +44,10 @@ class XMLDocumentBalancePage : public XMLDocument {
         dump_charge_dict();
     }
 
-    std::map<const char *, XMLDate *> DateDict;
-    std::map<const char *, XMLCharge *> ChargeDict;
-
    private:
     rapidxml::xml_node<> *root;
+    std::map<const char *, XMLDate *> DateDict;
+    std::map<const char *, XMLCharge *> ChargeDict;
 
     void load_date_dict() { load_subnodes_dict<XMLDate>(root, "Date", "Type", DateDict); }
 

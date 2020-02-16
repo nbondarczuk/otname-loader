@@ -28,10 +28,9 @@ class XMLAdvTxt : public XMLItem {
         load_text();
     }
 
-    const char *AdvTxt;
-
    private:
     const rapidxml::xml_node<> *root;
+    const char *AdvTxt;
 
     void load_text() { AdvTxt = root->value(); }
 };

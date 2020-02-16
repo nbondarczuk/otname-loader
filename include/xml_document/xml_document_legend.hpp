@@ -60,10 +60,9 @@ class XMLDocumentLegend : public XMLDocument {
         return rv;
     }
 
-    std::map<const std::string, XMLTypeDesc *> TypeDescDict;
-
    private:
     rapidxml::xml_node<> *root;
+    std::map<const std::string, XMLTypeDesc *> TypeDescDict;
 
     void load_type_desc_dict() { load_subnodes_dict<XMLTypeDesc>(root, "TypeDesc", "Type", "Id", TypeDescDict); }
 

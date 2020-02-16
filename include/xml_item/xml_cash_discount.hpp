@@ -36,12 +36,11 @@ class XMLCashDiscount : public XMLItem {
         load_dates();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Days;
     XMLCharge Charge;
     XMLDate Date;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory value
     void load_attributes() { Days = find_attribute_value("Days", root); }

@@ -29,11 +29,10 @@ class XMLPrice : public XMLItem {
         load_attributes();
     }
 
-    const char *Price;
-    const char *CurrCode;
-
    private:
     const rapidxml::xml_node<> *root;
+    const char *Price;
+    const char *CurrCode;
 
     // mandatory values
     void load_attributes() {

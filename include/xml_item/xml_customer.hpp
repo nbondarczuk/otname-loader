@@ -29,12 +29,11 @@ class XMLCustomer : public XMLItem {
         load_attributes();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Id;
     const char *SocSecNo;
     const char *DrivLicNo;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

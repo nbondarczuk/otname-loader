@@ -40,10 +40,9 @@ class XMLEnvelope : public XMLDocument {
         dump_parts();
     }
 
-    std::set<XMLPart *> Parts;
-
    private:
     rapidxml::xml_node<> *root;
+    std::set<XMLPart *> Parts;
 
     void load_parts() { load_subnodes<XMLPart>(root, "Part", Parts); }
 

@@ -5,21 +5,28 @@
 #include <vector>
 
 #include "article_string_item.hpp"
-#include "bill_document.hpp"
+#include "bill_document_visitor.hpp"
 #include "xml_document_summary.hpp"
 
 class ArticleStringFactory {
    public:
-    ArticleStringFactory() {}
+    static void dump(const std::vector<ArticleStringItem> &asis) {
+        for (auto it = asis.begin(); it != asis.end(); ++it) {
+            it->dump();
+        }
+    }
 
-    ~ArticleStringFactory() {}
+    static void save(const std::vector<ArticleStringItem> &asis) {
+        for (auto it = asis.begin(); it != asis.end(); ++it) {
+            it->save();
+        }
+    }
 
-    void dump() const {}
-
-    std::vector<ArticleStringItem> make(std::map<std::string, BillDocument *> &bd) {
+    static std::vector<ArticleStringItem> make(std::map<std::string, BillDocument *> &bd) {
         const XMLDocumentSummary *summary = dynamic_cast<XMLDocumentSummary *>(bd["Document.Summary"]);
         std::vector<ArticleStringItem> asis;
-        summary->collect(asis, summary->Id);
+        BillDocumentVisitor visitor(summary->getId(), asis);
+        summary->accept(&visitor);
         return asis;
     }
 };

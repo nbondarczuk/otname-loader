@@ -33,11 +33,10 @@ class XMLFiCont : public XMLItem {
         load_bank();
     }
 
-    XMLAccount *Account;
-    XMLBank *Bank;
-
    private:
     const rapidxml::xml_node<> *root;
+    XMLAccount *Account;
+    XMLBank *Bank;
 
     // optional value
     void load_account() { Account = find_subnode<XMLAccount>(root, "Account"); }

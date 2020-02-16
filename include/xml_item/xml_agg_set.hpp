@@ -31,10 +31,9 @@ class XMLAggSet : public XMLItem {
         load_atts();
     }
 
-    std::set<XMLAtt *> Atts;
-
    private:
     const rapidxml::xml_node<> *root;
+    std::set<XMLAtt *> Atts;
 
     // conditional values
     void load_atts() { load_subnodes<XMLAtt>(root, "Atts", Atts); }

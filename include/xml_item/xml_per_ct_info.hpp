@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "article_string_item.hpp"
+#include "bill_document_visitor.hpp"
 #include "rapidxml.hpp"
 #include "strutl.hpp"
 #include "xml_charge.hpp"
@@ -38,17 +38,17 @@ class XMLPerCTInfo : public XMLItem {
         load_sum_items();
     }
 
-    std::set<XMLCharge *> Charges;
-    std::set<XMLSumItem *> SumItems;
-
-    void collect(std::vector<ArticleStringItem> &asis, const char *documentId, const char *contractId) const {
+    void accept(const BillDocumentVisitor *v) const {
+        v->visit(this);
         for (auto it = SumItems.begin(); it != SumItems.end(); ++it) {
-            (*it)->collect(asis, documentId, contractId);
+            (*it)->accept(v);
         }
     }
 
    private:
     const rapidxml::xml_node<> *root;
+    std::set<XMLCharge *> Charges;
+    std::set<XMLSumItem *> SumItems;
 
     // conditioal set of values
     void load_charges() { load_subnodes<XMLCharge>(root, "Charge", Charges); }

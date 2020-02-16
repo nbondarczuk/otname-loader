@@ -21,14 +21,12 @@ int main(int argn, char **argv) {
         docs.insert(std::pair<std::string, BillDocument *>(xml->id(), xml));
     }
 
-    // produce single txt document file using all batched xml files
     TRACE("Start loading article strings: " + lexical_cast<string>(docs.size()));
     if (!docs.empty()) {
         ArticleStringFactory factory;
         const vector<ArticleStringItem> asis = factory.make(docs);
-        for (auto it = asis.begin(); it != asis.end(); ++it) {
-            it->dump();
-        }
+        factory.dump(asis);
+        factory.save(asis);
     }
 
     return 0;

@@ -3,16 +3,20 @@
 
 #include "rapidxml.hpp"
 
+class BillDocument;
+class BillDocumentVisitor;
+
 // A billing document interface: can be identified, has a name, clonable,
 // reloadsable from xml, dumpable
 class BillDocument {
    public:
     virtual ~BillDocument() = default;
     virtual std::string id() const = 0;
-    virtual BillDocument *clone() const = 0;
+    virtual BillDocument* clone() const = 0;
     virtual void reload() = 0;
     virtual void load() = 0;
     virtual void dump() const = 0;
+    virtual void accept(const BillDocumentVisitor* v) const = 0;
 };
 
 #endif  // __BILL_DOCUMENT_HPP__

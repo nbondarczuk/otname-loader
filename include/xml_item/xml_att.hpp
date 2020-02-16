@@ -29,11 +29,10 @@ class XMLAtt : public XMLItem {
         load_attributes();
     }
 
-    const char *Ty;
-    const char *Id;
-
    private:
     const rapidxml::xml_node<> *root;
+    const char *Ty;
+    const char *Id;
 
     // mandatory values
     void load_attributes() {

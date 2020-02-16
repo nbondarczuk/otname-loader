@@ -68,8 +68,8 @@ class XMLDocument : public BillDocument {
         load_attributes();
     }
 
-    virtual void accept(const BillDocumentVisitor *v) const {}
-
+	virtual void accept(const BillDocumentVisitor* v) const {}	
+	
     virtual void dump() const {
         assert(root);
         std::cout << id() << ".Sender: " << Sender << std::endl;
@@ -104,8 +104,8 @@ class XMLDocument : public BillDocument {
 
     rapidxml::xml_node<> *get_document_root() const { return root; }
 
-    const char *getId() const { return Id; }
-
+	const char* getId() const {
+	
    private:
     std::string xml_filename;
     std::vector<char> *buffer_ptr;

@@ -41,10 +41,9 @@ class XMLDocumentCallDetails : public XMLDocument {
         dump_calls();
     }
 
-    std::set<XMLCall *> Calls;
-
    private:
     rapidxml::xml_node<> *root;
+    std::set<XMLCall *> Calls;
 
     void load_calls() { load_subnodes<XMLCall>(root, "Call", Calls); }
 

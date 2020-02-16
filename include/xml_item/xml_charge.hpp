@@ -29,14 +29,15 @@ class XMLCharge : public XMLItem {
         load_attributes();
     }
 
+    const char *getAmount() const { return Amount; }
+
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Id;
     const char *Amount;
     const char *CurrCode;
     const char *Type;
     const char *PT;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

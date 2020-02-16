@@ -31,14 +31,13 @@ class XMLTypeDesc : public XMLItem {
 
     const char *getLongDes() const { return LongDes; }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *Type;
     const char *Id;
     const char *PKey;
     const char *ShDes;
     const char *LongDes;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

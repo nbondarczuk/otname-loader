@@ -48,14 +48,8 @@ class XMLInvoiceItem : public XMLItem {
         load_taxes();
     }
 
-    template <int N>
-    void collect(std::set<std::string> &unique, std::regex &pattern) const {
-        if (std::regex_match(ArticleString, pattern)) {
-            std::vector<std::string> prefix = split<N>(ArticleString, '.');
-            unique.insert(join<N>(prefix, '.'));
-        }
-    }
-
+   private:
+    const rapidxml::xml_node<> *root;
     const char *NumItem;
     const char *ArticleString;
     const char *CT;
@@ -65,9 +59,6 @@ class XMLInvoiceItem : public XMLItem {
     std::set<XMLCharge *> Charges;
     XMLPrice *Price;
     std::set<XMLTax *> Taxes;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

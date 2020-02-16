@@ -41,11 +41,10 @@ class XMLDocumentAddressPage : public XMLDocument {
         dump_bill_acc();
     }
 
-    XMLInvParty *InvParty;
-    XMLBillAcc *BillAcc;
-
    private:
     rapidxml::xml_node<> *root;
+    XMLInvParty *InvParty;
+    XMLBillAcc *BillAcc;
 
     void load_inv_party() { InvParty = find_subnode<XMLInvParty>(root, "InvParty"); }
 

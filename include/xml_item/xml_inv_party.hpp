@@ -38,13 +38,12 @@ class XMLInvParty : public XMLItem {
         load_cccontact();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *VATRegNo;
     XMLAddr *Addr;
     XMLFiCont *FiCont;
     XMLCCContact *CCContact;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() { VATRegNo = find_attribute_value("VATRegNo", root); }

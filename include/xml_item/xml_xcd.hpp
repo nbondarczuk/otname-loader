@@ -28,10 +28,9 @@ class XMLXcd : public XMLItem {
         load_dict();
     }
 
-    std::map<const char *, const char *> Dict;
-
    private:
     const rapidxml::xml_node<> *root;
+    std::map<const char *, const char *> Dict;
 
     void load_dict() {
         for (rapidxml::xml_attribute<> *a = root->first_attribute(); a; a = a->next_attribute()) {

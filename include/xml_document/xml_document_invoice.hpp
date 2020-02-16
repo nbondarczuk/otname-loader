@@ -64,6 +64,8 @@ class XMLDocumentInvoice : public XMLDocument {
         dump_taxes();
     }
 
+   private:
+    rapidxml::xml_node<> *root;
     const char *BillingMode;
     const char *InvType;
     std::set<XMLDate *> Dates;
@@ -71,9 +73,6 @@ class XMLDocumentInvoice : public XMLDocument {
     std::set<XMLInvoiceItem *> InvoiceItems;
     XMLInvoiceTotals *InvoiceTotals;
     std::set<XMLTax *> Taxes;
-
-   private:
-    rapidxml::xml_node<> *root;
 
     void load_attributes() {
         BillingMode = find_attribute_value("BillingMode", root);

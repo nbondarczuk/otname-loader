@@ -34,13 +34,12 @@ class XMLSrvParams : public XMLItem {
         load_dates();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *FlexParamDesc;
     const char *ParamDesc;
     const char *ParamVal;
     std::set<XMLDate *> Dates;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

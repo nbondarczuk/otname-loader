@@ -29,13 +29,12 @@ class XMLPart : public XMLItem {
         load_attributes();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *File;
     const char *LinkType;
     const char *DocType;
     const char *Format;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

@@ -34,11 +34,10 @@ class XMLSrvStatus : public XMLItem {
         load_dates();
     }
 
-    const char *Status;
-    std::set<XMLDate *> Dates;
-
    private:
     const rapidxml::xml_node<> *root;
+    const char *Status;
+    std::set<XMLDate *> Dates;
 
     // mandatory values
     void load_attributes() { Status = find_attribute_value("Status", root); }

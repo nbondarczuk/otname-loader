@@ -33,11 +33,10 @@ class XMLCall : public XMLItem {
         load_fup();
     }
 
-    XMLXcd *xcd;
-    XMLFup *fup;
-
    private:
     const rapidxml::xml_node<> *root;
+    XMLXcd *xcd;
+    XMLFup *fup;
 
     void load_xcd() { xcd = find_subnode<XMLXcd>(root, "XCD"); }
 

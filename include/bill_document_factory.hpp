@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-#include "bill_document.hpp"
+class BillDocument;
 
 // An abstract factory producing documents out of other ones
 class BillDocumentFactory {

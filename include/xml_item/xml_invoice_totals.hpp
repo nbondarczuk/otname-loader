@@ -33,10 +33,9 @@ class XMLInvoiceTotals : public XMLItem {
         load_charges();
     }
 
-    std::set<XMLCharge *> Charges;
-
    private:
     const rapidxml::xml_node<> *root;
+    std::set<XMLCharge *> Charges;
 
     // conditioal set of values
     void load_charges() { load_subnodes<XMLCharge>(root, "Charge", Charges); }

@@ -35,6 +35,8 @@ class XMLTax : public XMLItem {
         load_charges();
     }
 
+   private:
+    const rapidxml::xml_node<> *root;
     const char *ItemType;
     const char *Cat;
     const char *Name;
@@ -43,9 +45,6 @@ class XMLTax : public XMLItem {
     const char *CalcMethod;
     const char *Exemption;
     std::set<XMLCharge *> Charges;
-
-   private:
-    const rapidxml::xml_node<> *root;
 
     // mandatory values
     void load_attributes() {

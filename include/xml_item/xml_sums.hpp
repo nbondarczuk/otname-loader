@@ -31,10 +31,9 @@ class XMLSums : public XMLItem {
         load_sums();
     }
 
-    std::set<XMLCharge *> Charges;
-
    private:
     const rapidxml::xml_node<> *root;
+    std::set<XMLCharge *> Charges;
 
     // conditional values
     void load_sums() { load_subnodes<XMLCharge>(root, "Charge", Charges); }

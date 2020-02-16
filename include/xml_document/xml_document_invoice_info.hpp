@@ -41,10 +41,9 @@ class XMLDocumentInvoiceInfo : public XMLDocument {
         dump_adv_txt();
     }
 
-    std::set<XMLAdvTxt *> AdvTxt;
-
    private:
     rapidxml::xml_node<> *root;
+    std::set<XMLAdvTxt *> AdvTxt;
 
     void load_adv_txt() { load_subnodes<XMLAdvTxt>(root, "AdvTxt", AdvTxt); }
 

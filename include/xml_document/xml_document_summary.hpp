@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "article_string_item.hpp"
+#include "bill_document_visitor.hpp"
 #include "rapidxml.hpp"
 #include "xml_cust_ref.hpp"
 #include "xml_document.hpp"
@@ -46,17 +47,17 @@ class XMLDocumentSummary : public XMLDocument {
         dump_cust_refs();
     }
 
-    XMLSums *Sums;
-    std::set<XMLCustRef *> CustRefs;
-
-    void collect(std::vector<ArticleStringItem> &asis, const char *documentId) const {
+    void accept(const BillDocumentVisitor *v) const {
+        v->visit(this);
         for (auto it = CustRefs.begin(); it != CustRefs.end(); ++it) {
-            (*it)->collect(asis, documentId);
+            (*it)->accept(v);
         }
     }
 
    private:
     rapidxml::xml_node<> *root;
+    XMLSums *Sums;
+    std::set<XMLCustRef *> CustRefs;
 
     void load_sums() { Sums = find_subnode<XMLSums>(root, "Sums"); }
 
