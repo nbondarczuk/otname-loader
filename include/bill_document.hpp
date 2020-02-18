@@ -16,7 +16,7 @@ class BillDocument {
     virtual void reload() = 0;
     virtual void load() = 0;
     virtual void dump() const = 0;
-    virtual void accept(const BillDocumentVisitor* v) const = 0;
+    virtual void accept(BillDocumentVisitor* v) = 0;
 };
 
 #endif  // __BILL_DOCUMENT_HPP__

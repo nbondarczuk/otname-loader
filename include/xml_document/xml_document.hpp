@@ -68,7 +68,7 @@ class XMLDocument : public BillDocument {
         load_attributes();
     }
 
-    virtual void accept(const BillDocumentVisitor *v) const {}
+    virtual void accept(BillDocumentVisitor *v) {}
 
     virtual void dump() const {
         assert(root);

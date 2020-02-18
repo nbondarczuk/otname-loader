@@ -1,6 +1,8 @@
 #ifndef __ARTICLE_STRING_FACTORY_HPP__
 #define __ATRICLE_STRING_FACTORY_HPP__
 
+#include "assert.h"
+
 #include <map>
 #include <vector>
 
@@ -22,12 +24,18 @@ class ArticleStringFactory {
         }
     }
 
+	// get otname noes from sum-sheed documents
     static std::vector<ArticleStringItem> make(std::map<std::string, BillDocument *> &bd) {
-        // for each sum-sheet document
-        const XMLDocumentSummary *summary = dynamic_cast<XMLDocumentSummary *>(bd["Document.Summary"]);
         std::vector<ArticleStringItem> asis; //expected rvo
-        BillDocumentVisitor visitor(summary->getId(), asis);
-        summary->accept(&visitor);
+		// for each sum-sheet document
+		std::map<std::string, BillDocument *>::iterator it = bd.begin();
+		while (it != bd.end()) {
+			XMLDocumentSummary *summary = dynamic_cast<XMLDocumentSummary *>(it->second);
+			BillDocumentVisitor visitor(summary->getId(), asis);
+			summary->accept(&visitor);
+			it++;
+		}
+		
         return asis;
     }
 };

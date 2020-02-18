@@ -49,11 +49,15 @@ int main(int argn, char **argv) {
             const char *fn = argv[i];
             TRACE(std::string("Loading file: ") + fn);
             BillDocument *xml = xml_factory.make(fn);
-            docs.insert(std::pair<std::string, BillDocument *>(xml->id(), xml));
+			if (xml->id() == "Document.Summary") {
+				docs.insert(std::pair<std::string, BillDocument *>(fn, xml));
+			} else {
+				delete xml;
+			}
         }
     }
 
-    TRACE("Start loading article strings: " + lexical_cast<string>(docs.size()));
+    TRACE("Start loading article strings from documents: " + lexical_cast<string>(docs.size()));
     if (!docs.empty()) {
         ArticleStringFactory factory;
         const vector<ArticleStringItem> asis = factory.make(docs);
