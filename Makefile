@@ -18,6 +18,14 @@ clang-format:
 	clang-format -style="{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 240}" -i \
 	*.cpp ./include/*.hpp ./include/*/*.hpp
 
+start-xe:
+	docker run -d -v /var/oracle-xe-data:/u01/app/oracle -p 1521:1521 -e ORACLE_ALLOW_REMOTE=true -e ORACLE_PASSWORD=oracle -e RELAX_SECURITY=1 epiclabs/docker-oracle-xe-11g
+
+sql: sql-xe
+
+sql-xe:
+	(cd sql; bash install-XE.sh)
+
 clean:
 	rm -f $(TARGET) *~ ./include/*~ ./include/*/*~ core.*
 
