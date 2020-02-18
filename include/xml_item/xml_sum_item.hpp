@@ -43,7 +43,7 @@ class XMLSumItem : public XMLItem {
         load_charges();
     }
 
-    void accept(const BillDocumentVisitor *v) const {
+    void accept(BillDocumentVisitor *v) const {
         auto it = Charges.begin();
         const char *charge = (*it)->getAmount();
         v->visit(this, ArticleString, charge);

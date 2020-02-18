@@ -38,7 +38,7 @@ class XMLContract : public XMLItem {
         load_per_ct_infos();
     }
 
-    void accept(const BillDocumentVisitor *v) const {
+    void accept(BillDocumentVisitor *v) const {
         v->visit(this, Id);
         for (auto it = PerCTInfos.begin(); it != PerCTInfos.end(); ++it) {
             (*it)->accept(v);

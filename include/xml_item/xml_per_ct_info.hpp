@@ -38,7 +38,7 @@ class XMLPerCTInfo : public XMLItem {
         load_sum_items();
     }
 
-    void accept(const BillDocumentVisitor *v) const {
+    void accept(BillDocumentVisitor *v) const {
         v->visit(this);
         for (auto it = SumItems.begin(); it != SumItems.end(); ++it) {
             (*it)->accept(v);

@@ -13,15 +13,15 @@ class BillDocumentVisitor {
    public:
     BillDocumentVisitor(const char* id, std::vector<ArticleStringItem>& asis) : documentId(id), contractId(0), collector(asis) { assert(documentId); }
 
-    virtual void visit(const XMLDocumentSummary* e) const {}
+    virtual void visit(const XMLDocumentSummary* e) {}
 
-    virtual void visit(const XMLCustRef* e) const {}
+    virtual void visit(const XMLCustRef* e) {}
 
     virtual void visit(const XMLContract* e, const char* id) { contractId = id; }
 
-    virtual void visit(const XMLPerCTInfo* e) const {}
+    virtual void visit(const XMLPerCTInfo* e) {}
 
-    virtual void visit(const XMLSumItem* e, const char* as, const char* ch) const {
+    virtual void visit(const XMLSumItem* e, const char* as, const char* ch) {
         assert(contractId);
         ArticleStringItem item(documentId, contractId, as, ch);
         collector.push_back(item);

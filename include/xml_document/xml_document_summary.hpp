@@ -47,7 +47,7 @@ class XMLDocumentSummary : public XMLDocument {
         dump_cust_refs();
     }
 
-    void accept(const BillDocumentVisitor *v) const {
+    void accept(BillDocumentVisitor *v) const {
         v->visit(this);
         for (auto it = CustRefs.begin(); it != CustRefs.end(); ++it) {
             (*it)->accept(v);

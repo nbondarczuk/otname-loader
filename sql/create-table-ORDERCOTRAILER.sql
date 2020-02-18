@@ -2,8 +2,9 @@
 --  DDL for Table
 --------------------------------------------------------
 
-CREATE TABLE "SYSADM"."ORDERCOTRAILER" (
-	DOC_ID VARCHAR2(32),
+CREATE TABLE "SYSADM"."ORDERCOTRAILER"
+(
+	DOCUMENT_ID VARCHAR2(32),
 	CUSTOMER_ID VARCHAR2(32),
 	CO_ID VARCHAR2(32),
 	OTNAME VARCHAR2(256),
@@ -17,7 +18,12 @@ CREATE TABLE "SYSADM"."ORDERCOTRAILER" (
 --------------------------------------------------------
 
 CREATE UNIQUE INDEX "SYSADM"."PK_ORDERCOTRL_IDX" ON "SYSADM"."ORDERCOTRAILER"
-("DOC_ID", "CUSTOMER_ID", "CO_ID", "OTNAME");
+(
+ "DOCUMENT_ID",
+ "CUSTOMER_ID",
+ "CO_ID",
+ "OTNAME"
+);
 
 --------------------------------------------------------
 --  DDL for Constraints

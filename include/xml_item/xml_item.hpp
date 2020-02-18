@@ -20,7 +20,7 @@ class XMLItem {
    public:
     virtual void dump() const = 0;
     virtual void load() = 0;
-    virtual void accept(const BillDocumentVisitor* v) const {};
+    virtual void accept(BillDocumentVisitor* v) const {};
     virtual ~XMLItem(){};
 };
 
