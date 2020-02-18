@@ -25,7 +25,7 @@ class ArticleStringFactory {
     static std::vector<ArticleStringItem> make(std::map<std::string, BillDocument *> &bd) {
         // for each sum-sheet document
         const XMLDocumentSummary *summary = dynamic_cast<XMLDocumentSummary *>(bd["Document.Summary"]);
-        std::vector<ArticleStringItem> asis;
+        std::vector<ArticleStringItem> asis; //expected rvo
         BillDocumentVisitor visitor(summary->getId(), asis);
         summary->accept(&visitor);
         return asis;

@@ -11,19 +11,22 @@ class XMLSumItem;
 
 class BillDocumentVisitor {
    public:
-    BillDocumentVisitor(const char* id, std::vector<ArticleStringItem>& asis) : documentId(id), contractId(0), collector(asis) { assert(documentId); }
+    BillDocumentVisitor(const char* id, std::vector<ArticleStringItem>& asis) : document_id(id), contract_id(0), collector(asis) { assert(document_id); }
 
     virtual void visit(const XMLDocumentSummary* e) {}
 
     virtual void visit(const XMLCustRef* e) {}
 
-    virtual void visit(const XMLContract* e, const char* id) { contractId = id; }
+    virtual void visit(const XMLContract* e, const char* id) { contract_id = id; }
 
     virtual void visit(const XMLPerCTInfo* e) {}
 
     virtual void visit(const XMLSumItem* e, const char* as, const char* ch) {
-        assert(contractId);
-        ArticleStringItem item(documentId, contractId, as, ch);
+		assert(document_id);
+        assert(contract_id);
+		assert(as);
+		assert(ch);
+        ArticleStringItem item(document_id, contract_id, as, ch);
         collector.push_back(item);
     }
 
@@ -34,8 +37,8 @@ class BillDocumentVisitor {
     }
 
    private:
-    const char* documentId;
-    const char* contractId;
+    const char* document_id;
+    const char* contract_id;
     std::vector<ArticleStringItem>& collector;
 };
 
