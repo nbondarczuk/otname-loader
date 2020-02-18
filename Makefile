@@ -7,9 +7,11 @@ INCLUDE = -I./include/rapidxml \
 	-I./include/xml_document \
 	-I./include/utl \
 	-I./include/article_string
+ORAINC = -I$(ORACLE_HOME)/sdk/include
+ORALDD = -L$(ORACLE_HOME)/lib -lclntsh -locci -lclntsh
 
 $(TARGET):
-	$(CC) $(INCLUDE) $(OPTIONS) -o $(TARGET) $(TARGET).cpp trace.cpp
+	$(CC) $(INCLUDE) $(OPTIONS) -o $(TARGET) $(TARGET).cpp trace.cpp $(ORAINC) $(ORALDD)
 
 all: $(TARGET)
 

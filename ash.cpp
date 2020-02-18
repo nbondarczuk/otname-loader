@@ -1,4 +1,6 @@
+#include <occi.h>
 #include <iostream>
+#include <iomanip>
 
 #include "article_string_factory.hpp"
 #include "article_string_item.hpp"
@@ -6,6 +8,7 @@
 #include "trace.hpp"
 #include "xml_document_factory.hpp"
 
+using namespace oracle::occi;
 using namespace std;
 
 bool verbose = false;
@@ -57,6 +60,24 @@ int main(int argn, char **argv) {
         }
     }
 
+	Environment* env = 0;
+	Connection* con = 0;
+	if (save) {
+		TRACE("Creating DB environment");
+		env = Environment::createEnvironment();
+		try {
+			const string user(getenv("ORACLE_USER"));
+			const string passwd(getenv("ORACLE_PASSWD"));
+			const string db(getenv("ORACLE_DB"));
+			TRACE("Creating DB connection: " + user + "/" + passwd + "@" + db);
+			con = env->createConnection(user, passwd, db);
+			TRACE("Connected");
+		} catch (SQLException& ex) {
+			TRACE(string("Caught SQLException: ") + ex.what());
+			exit(EXIT_FAILURE);
+		}
+	}
+	
     TRACE("Start loading article strings from documents: " + lexical_cast<string>(docs.size()));
     if (!docs.empty()) {
         ArticleStringFactory factory;
