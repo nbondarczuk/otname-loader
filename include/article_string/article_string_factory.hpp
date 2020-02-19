@@ -18,9 +18,12 @@ static const char *sql = "INSERT INTO ORDERCOTRAILER (DOCUMENT_ID, CUSTOMER_ID, 
 class ArticleStringFactory {
    public:
     ArticleStringFactory(Connection *c) : connection(c) {
-        if (connection) {
-            statement = connection->createStatement(sql);
-        }
+        if (!connection) {
+			return;
+		}
+
+		statement = connection->createStatement(sql);
+		statement->setAutoCommit(false);
     }
 
     void dump(const std::vector<ArticleStringItem> &asis) {
@@ -30,14 +33,14 @@ class ArticleStringFactory {
     }
 
     void save(const std::vector<ArticleStringItem> &asis) {
-        if (connection) {
+        if (!connection) {
             return;
         }
 
-        statement->setAutoCommit(false);
         for (auto it = asis.begin(); it != asis.end(); ++it) {
             it->save(connection, statement);
         }
+		
         connection->commit();
     }
 
