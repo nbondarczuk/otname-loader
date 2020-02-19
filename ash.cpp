@@ -80,7 +80,7 @@ int main(int argn, char **argv) {
 	
     TRACE("Start loading article strings from documents: " + lexical_cast<string>(docs.size()));
     if (!docs.empty()) {
-        ArticleStringFactory factory;
+        ArticleStringFactory factory(con);
         const vector<ArticleStringItem> asis = factory.make(docs);
         if (save) {
             factory.save(asis);

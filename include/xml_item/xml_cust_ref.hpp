@@ -41,7 +41,7 @@ class XMLCustRef : public XMLItem {
     }
 
     void accept(BillDocumentVisitor *v) const {
-        v->visit(this);
+        v->visit(this, Id);
         for (auto it = Contracts.begin(); it != Contracts.end(); ++it) {
             (*it)->accept(v);
         }
