@@ -7,23 +7,43 @@
 #include <map>
 #include <vector>
 
+#include "trace.hpp"
 #include "article_string_item.hpp"
 #include "bill_document_visitor.hpp"
 #include "xml_document_summary.hpp"
+#include "dbutl.hpp"
 
 using namespace oracle::occi;
+using namespace std;
 
-static const char *sql = "INSERT INTO ORDERCOTRAILER (DOCUMENT_ID, CUSTOMER_ID, CO_ID, OTNAME, CHARGE) VALUES (:1, :2, :3, :4, :5)";
+static const char *sql = "INSERT \
+INTO ORDERCOTRAILER \
+(DOCUMENT_ID, CUSTOMER_ID, CO_ID, OTNAME, CHARGE) \
+VALUES \
+(:1, :2, :3, :4, :5)";
 
 class ArticleStringFactory {
    public:
-    ArticleStringFactory(Connection *c) : connection(c) {
-        if (!connection) {
-			return;
+    ArticleStringFactory(bool save) {
+		FRAME;
+		if (save) {
+			TRACE("Creating DB environment");
+			environment = Environment::createEnvironment();
+			valid_db_env();
+			try {
+				const string user(getenv("ORACLE_USER"));
+				const string passwd(getenv("ORACLE_PASSWD"));
+				const string db(getenv("ORACLE_DB"));
+				TRACE("Creating DB connection: " + user + "/" + passwd + "@" + db);
+				connection = environment->createConnection(user, passwd, db);
+				TRACE("Connected to: " + db + " as " + user);
+				statement = connection->createStatement(sql);
+				statement->setAutoCommit(false);
+			} catch (SQLException &ex) {
+				TRACE(string("Caught SQLException: ") + ex.what());
+				throw;
+			}
 		}
-
-		statement = connection->createStatement(sql);
-		statement->setAutoCommit(false);
     }
 
     void dump(const std::vector<ArticleStringItem> &asis) {
@@ -60,6 +80,7 @@ class ArticleStringFactory {
     }
 
    private:
+	Environment *environment;
     Connection *connection;
     Statement *statement;
 };

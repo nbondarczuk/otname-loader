@@ -13,11 +13,15 @@ using namespace std;
 
 bool verbose = false;
 bool save = false;
+bool dir = false;
 
 void help() {
-    cout << "Use: ash [-v] verbose mode, printout on stdout" << endl;
-    cout << "         [-s] save contents in ORDERCOTRAILER" << endl;
-    cout << "         [-t] trace" << endl;
+	cout << "Use: ash f1, f2... - Load XML files" << endl;
+    cout << "     Options [-v] Verbose mode, printout on stdout" << endl;	
+    cout << "             [-s] Save contents in ORDERCOTRAILER" << endl;
+	cout << "             [-d DIR] Load all files in DIR" << endl;	
+    cout << "             [-t] trace" << endl;
+
     exit(0);
 }
 
@@ -34,19 +38,22 @@ int main(int argn, char **argv) {
     for (int i = 1; i < argn; ++i) {
         if (argv[i][0] == '-') {
             switch (argv[i][1]) {
-                case 'h':
-                    help();
-                case 'v':
-                    verbose = true;
-                    break;
-                case 's':
-                    save = true;
-                    break;
-                case 't':
-                    __Frame__::on();
-                    break;
-                default:
-                    help();
+			case 'h':
+				help();
+			case 'v':
+				verbose = true;
+				break;
+			case 's':
+				save = true;
+				break;
+			case 't':
+				__Frame__::on();
+				break;
+			case 'd':
+				dir = true;
+				break;
+			default:
+				help();
             }
         } else {
             const char *fn = argv[i];
@@ -60,27 +67,13 @@ int main(int argn, char **argv) {
         }
     }
 
-    Environment *env = 0;
-    Connection *con = 0;
-    if (save) {
-        TRACE("Creating DB environment");
-        env = Environment::createEnvironment();
-        try {
-            const string user(getenv("ORACLE_USER"));
-            const string passwd(getenv("ORACLE_PASSWD"));
-            const string db(getenv("ORACLE_DB"));
-            TRACE("Creating DB connection: " + user + "/" + passwd + "@" + db);
-            con = env->createConnection(user, passwd, db);
-            TRACE("Connected");
-        } catch (SQLException &ex) {
-            TRACE(string("Caught SQLException: ") + ex.what());
-            exit(EXIT_FAILURE);
-        }
-    }
-
+	if (dir) {
+		//tbd
+	}
+	
     TRACE("Start loading article strings from documents: " + lexical_cast<string>(docs.size()));
     if (!docs.empty()) {
-        ArticleStringFactory factory(con);
+        ArticleStringFactory factory(save);
         const vector<ArticleStringItem> asis = factory.make(docs);
         if (save) {
             factory.save(asis);
