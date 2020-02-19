@@ -22,7 +22,7 @@ inline const char *find_attribute_value(const char *name, const rapidxml::xml_no
         }
     }
 
-    throw std::invalid_argument(std::string("Can't find attribute: ") + name);
+    throw std::exception();
 }
 
 inline const char *find_attribute_value_option(const char *name, const rapidxml::xml_node<> *root) {

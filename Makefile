@@ -1,5 +1,5 @@
 CC = g++
-OPTIONS = -g -fpermissive -D__USE_TRACE__
+OPTIONS = -std=c++0x -g -fpermissive -D__USE_TRACE__
 TARGET = ash
 INCLUDE = -I./include/rapidxml \
 	-I./include \
@@ -7,8 +7,8 @@ INCLUDE = -I./include/rapidxml \
 	-I./include/xml_document \
 	-I./include/utl \
 	-I./include/article_string
-ORAINC = -I$(ORACLE_HOME)/sdk/include
-ORALDD = -L$(ORACLE_HOME)/lib -lclntsh -locci -lclntsh
+ORAINC = -I$(ORACLE_CLIENT)/sdk/include
+ORALDD = -L$(ORACLE_CLIENT) -lclntsh -locci -lclntsh
 
 $(TARGET):
 	$(CC) $(INCLUDE) $(OPTIONS) -o $(TARGET) $(TARGET).cpp trace.cpp $(ORAINC) $(ORALDD)

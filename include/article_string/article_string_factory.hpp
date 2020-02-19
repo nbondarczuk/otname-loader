@@ -13,10 +13,14 @@
 
 using namespace oracle::occi;
 
+static const char* sql = "INSERT INTO ORDERCOTRAILER (DOCUMENT_ID, CUSTOMER_ID, CO_ID, OTNAME, CHARGE) VALUES (:1, :2, :3, :4, :5)";
+
 class ArticleStringFactory {
    public:
 	ArticleStringFactory(Connection* c) : connection(c) {
-		statement = connection->createStatement(sql);
+	  if (connection) {
+	    statement = connection->createStatement(sql);
+	  }
 	}
 	
     void dump(const std::vector<ArticleStringItem> &asis) {
@@ -26,7 +30,11 @@ class ArticleStringFactory {
     }
 
     void save(const std::vector<ArticleStringItem> &asis) {
-		statement->setAutoCommit(false);
+      if (connection) {
+	return;
+      }
+
+      statement->setAutoCommit(false);
         for (auto it = asis.begin(); it != asis.end(); ++it) {
             it->save(connection, statement);
         }
@@ -51,7 +59,6 @@ class ArticleStringFactory {
 private:
 	Connection* connection;
 	Statement* statement;
-	const char* sql = "INSERT INTO ORDERCOTRAILER (DOCUMENT_ID, CUSTOMER_ID, CO_ID, OTNAME, CHARGE) VALUES (:1, :2, :3, :4, :5)";
 };
 
 #endif  // __ARTICLE_STRING_FACTORY_HPP__

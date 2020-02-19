@@ -26,11 +26,11 @@ class ArticleStringItem {
 	}
 
    private:
-    const std::string invoice_id;
-	const std::string customer_id;
-    const std::string contract_id;
-    const std::string item_name;
-    const std::string charge;
+    std::string invoice_id;
+    std::string customer_id;
+    std::string contract_id;
+    std::string item_name;
+    std::string charge;
 };
 
 #endif  // __ARTICLE_STRING_ITEM_HPP__
